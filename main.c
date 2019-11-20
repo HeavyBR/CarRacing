@@ -19,7 +19,7 @@ int main(){
 
     while(keypress != 27){
         gotoxy(0,0);
-
+        
         CarEnemy(m, enemy, PIXEL);
         CarPlayer(m, player, PIXEL);
 
@@ -27,15 +27,13 @@ int main(){
 
         CarEnemy(m, enemy, EMPTY);
         CarPlayer(m, player, EMPTY);
+        
 
         if(ciclos!=VELOCITY){
             ciclos++;
         } else {
             wall = orderWall(wall);
             enemy.i++;
-            if(enemy.i == ROWS-1){
-                
-            }
             ciclos=0;
         }
 

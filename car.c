@@ -123,17 +123,19 @@ void CarPlayer(char matrix[ROWS][COLUMNS], car block, char symbol){
 //==========================================================
 // Construindo carro Enemy
 void CarEnemy(char matrix[ROWS][COLUMNS], car block, char symbol){
-    matrix[block.i][block.j+1] = symbol;
-    matrix[block.i][block.j+2] = symbol;
-    matrix[block.i][block.j-1] = symbol;
-    matrix[block.i][block.j-2] = symbol;
-    if(block.i-1 >= 0)matrix[block.i-1][block.j] = symbol;
-    if(block.i-2 >= 0)matrix[block.i-2][block.j] = symbol;
-    if(block.i-2 >= 0)matrix[block.i-2][block.j+1] = symbol;
-    if(block.i-2 >= 0)matrix[block.i-2][block.j+2] = symbol;
-    if(block.i-2 >= 0)matrix[block.i-2][block.j-1] = symbol;
-    if(block.i-2 >= 0)matrix[block.i-2][block.j-2] = symbol;
-    if(block.i-3 >= 0)matrix[block.i-3][block.j] = symbol;
+    if(block.i <= ROWS-1)matrix[block.i][block.j+1] = symbol;
+    if(block.i <= ROWS-1)matrix[block.i][block.j+2] = symbol;
+    if(block.i <= ROWS-1)matrix[block.i][block.j-1] = symbol;
+    if(block.i <= ROWS-1)matrix[block.i][block.j-2] = symbol;
+    if(block.i-1>=0 && block.i-1 <= ROWS-1)matrix[block.i-1][block.j] = symbol;
+    if(block.i-2 >= 0 && block.i-2 <= ROWS-1)matrix[block.i-2][block.j] = symbol;
+    if(block.i-2 >= 0 && block.i-2 <= ROWS-1)matrix[block.i-2][block.j+1] = symbol;
+    if(block.i-2 >= 0 && block.i-2 <= ROWS-1)matrix[block.i-2][block.j+2] = symbol;
+    if(block.i-2 >= 0 && block.i-2 <= ROWS-1)matrix[block.i-2][block.j-1] = symbol;
+    if(block.i-2 >= 0 && block.i-2 <= ROWS-1)matrix[block.i-2][block.j-2] = symbol;
+    if(block.i-3 >= 0 && block.i-3 <= ROWS-1)matrix[block.i-3][block.j] = symbol;
 }
 //==========================================================
 // 
+
+//==========================================================
