@@ -6,6 +6,8 @@ int main(){
     int ciclos=0;
     car player;
     car enemy;
+    int mov=0;
+    int collision=0;
     int wall=0;
     int keypress=0;
 
@@ -22,9 +24,17 @@ int main(){
         
         CarEnemy(m, enemy, PIXEL);
         CarPlayer(m, player, PIXEL);
+        //verifica a colisão lateral aqui
+        collision=SideCollision(m, player);
 
         printMtx(m, wall);
 
+        if(collision == 1){
+            // collision = 0;
+            goto gameover;
+        }
+
+        // executa a ação de colisão aqui
         CarEnemy(m, enemy, EMPTY);
         CarPlayer(m, player, EMPTY);
         
@@ -47,12 +57,15 @@ int main(){
                     CarPlayerLeft(&player);
                     break;
             case TECLA_D:
-            case TECLA_d:
+            case TECLA_d:{
                     CarPlayerRight(&player);
                     break;
+            }
         }
 
     }
+
+    gameover: GameOver(m);
 
     system("pause");
 

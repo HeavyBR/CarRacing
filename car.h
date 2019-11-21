@@ -46,3 +46,7 @@ void CarEnemyLeft(car *block);
 void CarEnemyRight(car *block);
 
 void CarEnemyClear(char matrix[ROWS][COLUMNS], car block);
+
+void GameOver(char matrix[ROWS][COLUMNS]);
+
+int SideCollision(char matrix[ROWS][COLUMNS], car block);

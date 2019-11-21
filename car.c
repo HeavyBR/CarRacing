@@ -136,6 +136,42 @@ void CarEnemy(char matrix[ROWS][COLUMNS], car block, char symbol){
     if(block.i-3 >= 0 && block.i-3 <= ROWS-1)matrix[block.i-3][block.j] = symbol;
 }
 //==========================================================
-// 
+// Verificando colisoes laterais
+int SideCollision(char matrix[ROWS][COLUMNS], car block){
+    int i, j, reader=0;
+
+    if(block.position == LEFT){
+        for(i=20;i<=23;i++){ // Mapa de colisão Right
+            for(j=9;j<=13;j++){
+                if(matrix[i][j] != EMPTY){
+                    reader=1;
+                }
+            }
+        }
+    }
+
+    if(block.position == RIGHT){
+        for(i=20;i<=23;i++){ // Mapa de colisão left
+            for(j=1;j<=5;j++){
+                if(matrix[i][j] != EMPTY){
+                    reader=1;
+                }
+            }
+        }
+    }
+
+    return reader;
+}
+//==========================================================
+int Maps(char matrix[ROWS][COLUMNS], car block){
+    
+}
+
+
+//==========================================================
+// função de game over, apos batida.
+void GameOver(char matrix[ROWS][COLUMNS]){
+    printf("Teste Testado");
+}
 
 //==========================================================
