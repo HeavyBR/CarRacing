@@ -155,8 +155,12 @@ void CarEnemy(char matrix[ROWS][COLUMNS], car block, char symbol){
 //     }
 //     return reader;
 // }
-int ColSideRight(char matrix[ROWS][COLUMNS], car block){
-    
+int ColSideRight(char matrix[ROWS][COLUMNS]){
+    int reader=0;
+
+    if(matrix[23][11] != EMPTY){
+        reader=1;
+    } else if(matrix[23][10])
 }
 
 //==========================================================
