@@ -75,17 +75,25 @@ int orderWall(int order){
     return order;
 }
 //==========================================================
+void InitCarPlayer(car *block){
+    block->i = 23;
+    block->j = 4;
+    block->position = LEFT;
+    block->width = 5;
+    block->height = 4;
+}
+//==========================================================
 // Posicionando carro player e inimigo
 void CarPlayerLeft(car *block){
     block->i = 23;
-    block->j = 3;
+    block->j = 4;
     block->position = LEFT;
     block->width = 5;
     block->height = 4;
 }
 void CarEnemyLeft(car *block){
     block->i = 0;
-    block->j = 3;
+    block->j = 4;
     block->position = LEFT;
     block->width = 5;
     block->height = 4;
@@ -93,14 +101,14 @@ void CarEnemyLeft(car *block){
 //------
 void CarPlayerRight(car *block){
     block->i = 23;
-    block->j = 11;
+    block->j = 10;
     block->position = RIGHT;
     block->width = 5;
     block->height = 4;
 }
 void CarEnemyRight(car *block){
     block->i = 0;
-    block->j = 11;
+    block->j = 10;
     block->position = RIGHT;
     block->width = 5;
     block->height = 4;
@@ -138,28 +146,13 @@ void CarEnemy(char matrix[ROWS][COLUMNS], car block, char symbol){
 //==========================================================
 // Verificando colisoes laterais
 int SideCollision(char matrix[ROWS][COLUMNS], car block){
-    int i, j, reader=0;
+    int reader=0;
 
-    if(block.position == LEFT){
-        for(i=20;i<=23;i++){ // Mapa de colisão Right
-            for(j=9;j<=13;j++){
-                if(matrix[i][j] != EMPTY){
-                    reader=1;
-                }
-            }
-        }
+    if(matrix[block.i][block.j+4] != EMPTY){
+        reader=1;
+    } else if(matrix[block.i-1][block.j+4] != EMPTY){
+        reader=1;
     }
-
-    if(block.position == RIGHT){
-        for(i=20;i<=23;i++){ // Mapa de colisão left
-            for(j=1;j<=5;j++){
-                if(matrix[i][j] != EMPTY){
-                    reader=1;
-                }
-            }
-        }
-    }
-
     return reader;
 }
 //==========================================================

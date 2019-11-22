@@ -50,3 +50,5 @@ void CarEnemyClear(char matrix[ROWS][COLUMNS], car block);
 void GameOver(char matrix[ROWS][COLUMNS]);
 
 int SideCollision(char matrix[ROWS][COLUMNS], car block);
+
+void InitCarPlayer(car *block);
