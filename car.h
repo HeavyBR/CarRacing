@@ -11,7 +11,7 @@
 #define TECLA_A 65
 #define TECLA_D 68
 // velocidade de ciclos
-#define VELOCITY 14
+#define VELOCITY 5
 // Posições carro jogador
 #define LEFT 1
 #define RIGHT 2

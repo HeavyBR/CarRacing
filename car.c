@@ -145,16 +145,20 @@ void CarEnemy(char matrix[ROWS][COLUMNS], car block, char symbol){
 }
 //==========================================================
 // Verificando colisoes laterais
-int SideCollision(char matrix[ROWS][COLUMNS], car block){
-    int reader=0;
+// int SideCollision(char matrix[ROWS][COLUMNS], car block){
+//     int reader=0;
 
-    if(matrix[block.i][block.j+4] != EMPTY){
-        reader=1;
-    } else if(matrix[block.i-1][block.j+4] != EMPTY){
-        reader=1;
-    }
-    return reader;
+//     if(matrix[block.i][block.j+4] != EMPTY){
+//         reader=1;
+//     } else if(matrix[block.i-1][block.j+4] != EMPTY){
+//         reader=1;
+//     }
+//     return reader;
+// }
+int ColSideRight(char matrix[ROWS][COLUMNS], car block){
+    
 }
+
 //==========================================================
 int Maps(char matrix[ROWS][COLUMNS], car block){
     

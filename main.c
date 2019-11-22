@@ -26,20 +26,22 @@ int main(){
         CarEnemy(m, enemy, PIXEL);
         CarPlayer(m, player, PIXEL);
         //verifica a colisão lateral aqui
-        if(Rmov == 1){
-            collision=SideCollision(m, player);
-        }
+        // if(Rmov == 1){
+        //     collision=SideCollision(m, player);
+            
+        // }
 
         printMtx(m, wall);
 
         if(collision == 1){
             // collision = 0;
+            Rmov = 0;
             goto gameover;
         }
 
         // executa a ação de colisão aqui
         CarEnemy(m, enemy, EMPTY);
-        CarPlayer(m, player, EMPTY);
+        //CarPlayer(m, player, EMPTY);
         
 
         if(ciclos!=VELOCITY){
@@ -50,6 +52,7 @@ int main(){
             ciclos=0;
         }
 
+        keypress = EMPTY;
         if(_kbhit()){
             keypress = getch();
         }
@@ -57,19 +60,20 @@ int main(){
         switch(keypress){
             case TECLA_A:
             case TECLA_a:
-                    Lmov=0;
-                    Rmov=1;
+                    CarPlayer(m, player, EMPTY);
                     CarPlayerLeft(&player);
                     break;
             case TECLA_D:
             case TECLA_d:{
-                    Rmov=0;
-                    Lmov=1; 
-                    CarPlayerRight(&player);
-                    break;
+                    Rmov=1;
+                    CarPlayer(m, player, EMPTY);
+                CarPlayerRight(&player);
+                break;
             }
                     
         }
+
+        
 
         printf("%d", Rmov);
         printf("%d", Lmov);
