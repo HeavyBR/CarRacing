@@ -155,12 +155,28 @@ void CarEnemy(char matrix[ROWS][COLUMNS], car block, char symbol){
 //     }
 //     return reader;
 // }
-int ColSideRight(char matrix[ROWS][COLUMNS]){
-    int reader=0;
+// int ColSideRight(char matrix[ROWS][COLUMNS]){
+//     int reader=0;
 
-    if(matrix[23][11] != EMPTY){
-        reader=1;
-    } else if(matrix[23][10])
+//     if(matrix[23][11] != EMPTY){
+//         reader=1;
+//     } else if(matrix[23][10])
+// }
+
+int SideCollision(char matrix[ROWS][COLUMNS], car block){
+    int retorno = 0;
+
+    if(block.position == LEFT){
+        if(matrix[23][10-1] != EMPTY);
+            retorno = 1;
+    }
+
+    if(block.position == RIGHT){
+        if(matrix[23][4-1] != EMPTY);
+            retorno = 1;
+    }
+
+    return retorno;
 }
 
 //==========================================================
@@ -172,7 +188,7 @@ int Maps(char matrix[ROWS][COLUMNS], car block){
 //==========================================================
 // função de game over, apos batida.
 void GameOver(char matrix[ROWS][COLUMNS]){
-    printf("Teste Testado");
+    printf("Teste Testado\n");
 }
 
 //==========================================================

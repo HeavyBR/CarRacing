@@ -41,6 +41,7 @@ int main(){
 
         // executa a ação de colisão aqui
         CarEnemy(m, enemy, EMPTY);
+        CarPlayer(m, player, EMPTY);
         //CarPlayer(m, player, EMPTY);
         
 
@@ -59,23 +60,21 @@ int main(){
 
         switch(keypress){
             case TECLA_A:
-            case TECLA_a:
-                    CarPlayer(m, player, EMPTY);
-                    CarPlayerLeft(&player);
-                    break;
+            case TECLA_a:{
+                collision = SideCollision(m, player);
+                CarPlayerLeft(&player);
+                break;
+            }
             case TECLA_D:
             case TECLA_d:{
-                    Rmov=1;
-                    CarPlayer(m, player, EMPTY);
+                collision = SideCollision(m, player);
                 CarPlayerRight(&player);
                 break;
             }
                     
         }
 
-        
-
-        printf("%d", Rmov);
+        printf("%d", keypress);
         printf("%d", Lmov);
         printf("%d", collision);
 
