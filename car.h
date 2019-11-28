@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <conio.h>
 
 // Matrix
@@ -12,7 +11,7 @@
 #define TECLA_A 65
 #define TECLA_D 68
 // velocidade de ciclos
-#define VELOCITY 5
+#define VELOCITY 8
 // Posições carro jogador
 #define LEFT 1
 #define RIGHT 2
@@ -49,7 +48,5 @@ void CarEnemyRight(car *block);
 void CarEnemyClear(char matrix[ROWS][COLUMNS], car block);
 
 void GameOver(char matrix[ROWS][COLUMNS]);
-
-int SideCollision(char matrix[ROWS][COLUMNS], car block);
 
 void InitCarPlayer(car *block);

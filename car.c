@@ -76,7 +76,7 @@ int orderWall(int order){
 }
 //==========================================================
 void InitCarPlayer(car *block){
-    block->i = 23;
+    block->i = 24;
     block->j = 4;
     block->position = LEFT;
     block->width = 5;
@@ -85,7 +85,7 @@ void InitCarPlayer(car *block){
 //==========================================================
 // Posicionando carro player e inimigo
 void CarPlayerLeft(car *block){
-    block->i = 23;
+    block->i = 24;
     block->j = 4;
     block->position = LEFT;
     block->width = 5;
@@ -100,7 +100,7 @@ void CarEnemyLeft(car *block){
 }
 //------
 void CarPlayerRight(car *block){
-    block->i = 23;
+    block->i = 24;
     block->j = 10;
     block->position = RIGHT;
     block->width = 5;
@@ -144,6 +144,16 @@ void CarEnemy(char matrix[ROWS][COLUMNS], car block, char symbol){
     if(block.i-3 >= 0 && block.i-3 <= ROWS-1)matrix[block.i-3][block.j] = symbol;
 }
 //==========================================================
+
+//==========================================================
+
+//==========================================================
+// função de game over, apos batida.
+void GameOver(char matrix[ROWS][COLUMNS]){
+    printf("Teste Testado\n");
+}
+
+//==========================================================
 // Verificando colisoes laterais
 // int SideCollision(char matrix[ROWS][COLUMNS], car block){
 //     int reader=0;
@@ -160,35 +170,7 @@ void CarEnemy(char matrix[ROWS][COLUMNS], car block, char symbol){
 
 //     if(matrix[23][11] != EMPTY){
 //         reader=1;
-//     } else if(matrix[23][10])
+//     } else if(matrix[23][10] != EMPTY){
+//         reader=1;
+//     }
 // }
-
-int SideCollision(char matrix[ROWS][COLUMNS], car block){
-    int retorno = 0;
-
-    if(block.position == LEFT){
-        if(matrix[23][10-1] != EMPTY);
-            retorno = 1;
-    }
-
-    if(block.position == RIGHT){
-        if(matrix[23][4-1] != EMPTY);
-            retorno = 1;
-    }
-
-    return retorno;
-}
-
-//==========================================================
-int Maps(char matrix[ROWS][COLUMNS], car block){
-    
-}
-
-
-//==========================================================
-// função de game over, apos batida.
-void GameOver(char matrix[ROWS][COLUMNS]){
-    printf("Teste Testado\n");
-}
-
-//==========================================================
