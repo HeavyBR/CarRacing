@@ -92,7 +92,7 @@ void CarPlayerLeft(car *block){
     block->height = 4;
 }
 void CarEnemyLeft(car *block){
-    block->i = 0;
+    block->i = -1;
     block->j = 4;
     block->position = LEFT;
     block->width = 5;
@@ -107,7 +107,7 @@ void CarPlayerRight(car *block){
     block->height = 4;
 }
 void CarEnemyRight(car *block){
-    block->i = 0;
+    block->i = -1;
     block->j = 10;
     block->position = RIGHT;
     block->width = 5;
@@ -130,6 +130,20 @@ void CarPlayer(char matrix[ROWS][COLUMNS], car block, char symbol){
 }
 //==========================================================
 // Construindo carro Enemy
+// void CarEnemy(char matrix[ROWS][COLUMNS], car *block, char symbol){
+//     if(block->i <= ROWS-1)matrix[block->i][block->j+1] = symbol;
+//     if(block->i <= ROWS-1)matrix[block->i][block->j+2] = symbol;
+//     if(block->i <= ROWS-1)matrix[block->i][block->j-1] = symbol;
+//     if(block->i <= ROWS-1)matrix[block->i][block->j-2] = symbol;
+//     if(block->i-1>=0 && block->i-1 <= ROWS-1)matrix[block->i-1][block->j] = symbol;
+//     if(block->i-2 >= 0 && block->i-2 <= ROWS-1)matrix[block->i-2][block->j] = symbol;
+//     if(block->i-2 >= 0 && block->i-2 <= ROWS-1)matrix[block->i-2][block->j+1] = symbol;
+//     if(block->i-2 >= 0 && block->i-2 <= ROWS-1)matrix[block->i-2][block->j+2] = symbol;
+//     if(block->i-2 >= 0 && block->i-2 <= ROWS-1)matrix[block->i-2][block->j-1] = symbol;
+//     if(block->i-2 >= 0 && block->i-2 <= ROWS-1)matrix[block->i-2][block->j-2] = symbol;
+//     if(block->i-3 >= 0 && block->i-3 <= ROWS-1)matrix[block->i-3][block->j] = symbol;
+// }
+
 void CarEnemy(char matrix[ROWS][COLUMNS], car block, char symbol){
     if(block.i <= ROWS-1)matrix[block.i][block.j+1] = symbol;
     if(block.i <= ROWS-1)matrix[block.i][block.j+2] = symbol;
@@ -144,8 +158,30 @@ void CarEnemy(char matrix[ROWS][COLUMNS], car block, char symbol){
     if(block.i-3 >= 0 && block.i-3 <= ROWS-1)matrix[block.i-3][block.j] = symbol;
 }
 //==========================================================
+// Carros Inimigos: Conjunto 1 -
+void EnemyAlone(char matrix[ROWS][COLUMNS], car *enemy){
+    srand(time(NULL));
+    int posit=0;
+    posit=Random();
+    
+    if(posit==0){
+        CarEnemyLeft(enemy);
+    } else {
+        CarEnemyRight(enemy);
+    }
 
+}
 //==========================================================
+int Random(){
+    int i;
+
+    i= (rand() % 2);
+
+    printf("oi");
+    getch();
+
+    return i;
+}
 
 //==========================================================
 // função de game over, apos batida.
@@ -154,23 +190,3 @@ void GameOver(char matrix[ROWS][COLUMNS]){
 }
 
 //==========================================================
-// Verificando colisoes laterais
-// int SideCollision(char matrix[ROWS][COLUMNS], car block){
-//     int reader=0;
-
-//     if(matrix[block.i][block.j+4] != EMPTY){
-//         reader=1;
-//     } else if(matrix[block.i-1][block.j+4] != EMPTY){
-//         reader=1;
-//     }
-//     return reader;
-// }
-// int ColSideRight(char matrix[ROWS][COLUMNS]){
-//     int reader=0;
-
-//     if(matrix[23][11] != EMPTY){
-//         reader=1;
-//     } else if(matrix[23][10] != EMPTY){
-//         reader=1;
-//     }
-// }

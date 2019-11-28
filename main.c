@@ -36,7 +36,7 @@ int main(){
         CarPlayer(m, player, EMPTY);
 
         if(enemy.i == ROWS+3){
-            CarEnemyRight(&enemy);
+            EnemyAlone(m, &enemy);
         }
         
 
