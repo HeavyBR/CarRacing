@@ -5,7 +5,8 @@ int main(){
     char m[ROWS][COLUMNS];
     int ciclos=0;
     car player;
-    car enemy;
+    car enemy1;
+    car enemy2;
     int Rmov=0;
     int Lmov=0;
     int collision=0;
@@ -15,7 +16,8 @@ int main(){
     system("color FD");
 
     InitCarPlayer(&player);
-    CarEnemyRight(&enemy);
+    CarEnemyRight(&enemy1);
+    CarEnemyLeft(&enemy2);
     startMtrx(m);
     ShowConsoleCursor(0);
     system("cls");
@@ -23,20 +25,22 @@ int main(){
     while(keypress != 27){
         gotoxy(0,0);
 
-        CarEnemy(m, enemy, PIXEL);
+        CarEnemy(m, enemy1, PIXEL);
         CarPlayer(m, player, PIXEL);
 
         printMtx(m, wall);
 
-        if(enemy.i >= 21 && player.position == enemy.position){
+        // Verificando colisão
+        if(Collision(enemy1, player) == 1 || Collision(enemy2, player) == 1){
             goto gameover;
         }
 
-        CarEnemy(m, enemy, EMPTY);
+        CarEnemy(m, enemy1, EMPTY);
         CarPlayer(m, player, EMPTY);
 
-        if(enemy.i == ROWS+3){
-            EnemyAlone(m, &enemy);
+        // Depois do desaparecimento completo, reinia carrinho
+        if(enemy1.i == ROWS+3){
+            EnemyAlone(m, &enemy1);
         }
         
 
@@ -44,7 +48,7 @@ int main(){
             ciclos++;
         } else {
             wall = orderWall(wall);
-            enemy.i++;
+            enemy1.i++;
             ciclos=0;
         }
 

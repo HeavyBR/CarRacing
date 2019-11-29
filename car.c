@@ -145,10 +145,10 @@ void CarPlayer(char matrix[ROWS][COLUMNS], car block, char symbol){
 // }
 
 void CarEnemy(char matrix[ROWS][COLUMNS], car block, char symbol){
-    if(block.i <= ROWS-1)matrix[block.i][block.j+1] = symbol;
-    if(block.i <= ROWS-1)matrix[block.i][block.j+2] = symbol;
-    if(block.i <= ROWS-1)matrix[block.i][block.j-1] = symbol;
-    if(block.i <= ROWS-1)matrix[block.i][block.j-2] = symbol;
+    if(block.i>=0 && block.i <= ROWS-1)matrix[block.i][block.j+1] = symbol;
+    if(block.i>=0 && block.i <= ROWS-1)matrix[block.i][block.j+2] = symbol;
+    if(block.i>=0 && block.i <= ROWS-1)matrix[block.i][block.j-1] = symbol;
+    if(block.i>=0 && block.i <= ROWS-1)matrix[block.i][block.j-2] = symbol;
     if(block.i-1>=0 && block.i-1 <= ROWS-1)matrix[block.i-1][block.j] = symbol;
     if(block.i-2 >= 0 && block.i-2 <= ROWS-1)matrix[block.i-2][block.j] = symbol;
     if(block.i-2 >= 0 && block.i-2 <= ROWS-1)matrix[block.i-2][block.j+1] = symbol;
@@ -160,7 +160,7 @@ void CarEnemy(char matrix[ROWS][COLUMNS], car block, char symbol){
 //==========================================================
 // Carros Inimigos: Conjunto 1 -
 void EnemyAlone(char matrix[ROWS][COLUMNS], car *enemy){
-    srand(time(NULL));
+
     int posit=0;
     posit=Random();
     
@@ -175,6 +175,7 @@ void EnemyAlone(char matrix[ROWS][COLUMNS], car *enemy){
 int Random(){
     int i;
 
+    srand(time(NULL));
     i= (rand() % 2);
 
     printf("oi");
@@ -182,7 +183,15 @@ int Random(){
 
     return i;
 }
-
+//==========================================================
+//Verifica colisão
+int Collision(car enemy, car player){
+    if(enemy.i >= 21 && player.position == enemy.position){
+        return 1;
+    } else {
+        return 0;
+    }
+}
 //==========================================================
 // função de game over, apos batida.
 void GameOver(char matrix[ROWS][COLUMNS]){

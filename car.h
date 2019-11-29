@@ -54,3 +54,5 @@ void GameOver(char matrix[ROWS][COLUMNS]);
 void InitCarPlayer(car *block);
 
 void EnemyAlone(char matrix[ROWS][COLUMNS], car *enemy);
+
+int Collision(car enemy, car player);
