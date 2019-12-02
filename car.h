@@ -65,3 +65,7 @@ void ResetEnemy(car enemy);
 void VelocityGame(int *moment);
 
 int MenuGame();
+
+void Highscore();
+
+void NewRecord(int pontos);

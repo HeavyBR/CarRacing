@@ -206,6 +206,7 @@ int Collision(car enemy, car player){
 //==========================================================
 // função de game over, apos batida.
 int GameOver(char matrix[ROWS][COLUMNS], int pontos){
+    int control=0;
     mark:
     system("cls");
     int i=0;
@@ -221,7 +222,7 @@ int GameOver(char matrix[ROWS][COLUMNS], int pontos){
     printf("\t\xB1     \xB3 GAME OVER \xB3\t\xB1\n");
     printf("\t\xB1     \xC0\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xD9\t\xB1\n");
     printf("\t\xB1\t\t\t\xB1\n");
-    printf("\t\xB1      PONTOS: %d\t\xB1\n", pontos);
+    printf("\t\xB1      SCORE: %d\t\xB1\n", pontos);
     printf("\t\xB1\t\t\t\xB1\n");
     printf("\t\xB1      1-Novo Jogo\t\xB1\n");
     printf("\t\xB1\t 2-Menu  \t\xB1\n");
@@ -232,6 +233,11 @@ int GameOver(char matrix[ROWS][COLUMNS], int pontos){
         printf("\xB1");
     }
     printf("\n");
+
+    if(control == 0){
+        NewRecord(pontos);
+        control=1;
+    }
 
     printf("\tOpcao: ");
     scanf("%d", &opc);
@@ -283,12 +289,79 @@ int MenuGame(){
     return opc;
 }
 //==========================================================
-// void numsei(){
-//     FILE *arquivo;
+void Highscore(){
+    system("cls");
+    int i=0;
+    int position=1; // Manipulador de posição
+    char matriz[10][25];
+    FILE *arquivo;
 
-//     if((arquivo = fopen("Pontuacao.txt", "r")) == NULL){
-//         printf("\nError: File cannot be found or opened");
-//     } else {
+    printf("\n\t=== HIGHSCORE ===\n");
+
+    if((arquivo = fopen("Pontuacao.txt", "r")) == NULL){
+        printf("\nError: File cannot be found or opened");
+    } else {
+        for(i=0;i<10;i++){
+            fgets(matriz[i], 25, arquivo);
+        }
+
+        for(i=0;i<10;i++){
+            if(i%2 == 0){
+                printf("\t    %d\xF8 Lugar\n\t    %s", position, matriz[i]);
+                position++;
+            } else {
+                printf("\t    Score %s\n", matriz[i]);
+            } 
+        }
+        printf("\t================\n");
+    }
+    fclose(arquivo);
+    getch();
+    fflush(arquivo);
+}
+//==========================================================
+// Registro de novos recordes
+void NewRecord(int pontos){
+    int i=0;
+    char matriz[10][25];
+    int auxInt=0;
+    int position=1;
+    FILE *arquivo;
+
+    if((arquivo = fopen("Pontuacao.txt", "r")) == NULL){
+        printf("\nError: File cannot be found or opened");
+    } else {
+        for(i=0;i<10;i++){
+            fgets(matriz[i], 25, arquivo);
+        }
+    }
+    fclose(arquivo);
+    fflush(arquivo);
+
+    if((arquivo = fopen("Pontuacao.txt", "w")) == NULL){
+        printf("\nError: File cannot be found or opened");
+    } else {
+        for(i=0;i<10;i++){
+            if(i%2 != 0){
+                auxInt=atoi(matriz[i]);
+                if(auxInt <= pontos){
+                    printf("\t=== NOVO RECORDE!!! ===\n");
+                    printf("\t     * %d Lugar *\n", position);
+                    printf("\t Nome: ");
+                    scanf("%s", &matriz[i-1]);
+                    printf("\t=======================\n");
+                    sprintf(matriz[i], "\n%d\n", pontos);
+                    goto mark;
+                }
+                position++;
+            } 
+        }
+
         
-//     }
-// }
+        mark:for(i=0;i<10;i++){
+            fprintf(arquivo, "%s", matriz[i]);
+        }
+    }
+    fclose(arquivo);
+    fflush(arquivo);
+}

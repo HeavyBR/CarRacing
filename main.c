@@ -15,9 +15,11 @@ int main(){
     int score=0;
     int option=0;
 
+    system("color FD");
     Menu:option=MenuGame();
     if(option == 2){
-        
+        Highscore();
+        goto Menu;
     } else if(option == 3){
         exit(0);
     }
@@ -30,7 +32,6 @@ int main(){
     keypress=0;
     wall=0;
     ciclos=0;
-    system("color FD");
 
     InitCarPlayer(&player);
     for(i=0;i<3;i++)
