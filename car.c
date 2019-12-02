@@ -14,12 +14,16 @@ void startMtrx(char matrix[ROWS][COLUMNS]){
 }
 //==========================================================
 // Visual e animações
-void printMtx(char matrix[ROWS][COLUMNS], int detect){
+void printMtx(char matrix[ROWS][COLUMNS], int detect, int pontos){
     int i, j, resto;
 
     printf("\n\t\t\t");
     for(j=0;j<COLUMNS+4;j++){ /* linha de cima */
         printf("\xB1");
+    }
+    printf(" ");
+    for(i=0;i<14;i++){
+        printf("\xDC");
     }
     printf("\n");
 
@@ -45,17 +49,40 @@ void printMtx(char matrix[ROWS][COLUMNS], int detect){
 
         if(detect==1){
             if(resto==0){
-                printf("\xDB\xB1\n");
+                printf("\xDB\xB1");
             } else {
-                printf(" \xB1\n");
+                printf(" \xB1");
             }
         } else {
             if(resto==0){
-                printf(" \xB1\n");
+                printf(" \xB1");
             } else {
-                printf("\xDB\xB1\n");
+                printf("\xDB\xB1");
             }
         }
+        // Print score e nivel
+        if(i==1){
+            if(pontos >= 450)
+                printf("    NIVEL 2");
+            else 
+                printf("    NIVEL 1");
+        }
+        if(i==3){
+            printf(" ");
+            for(j=0;j<14;j++){
+                printf("\xDF");
+            } 
+        }
+        if(i==4){
+            printf("  SCORE: %d", pontos);
+        }
+        if(i==6){
+            printf(" ");
+            for(j=0;j<14;j++){
+                printf("\xDF");
+            }  
+        }
+        printf("\n");
     }
 
     printf("\t\t\t");
@@ -75,6 +102,7 @@ int orderWall(int order){
     return order;
 }
 //==========================================================
+// Iniciando carro Player
 void InitCarPlayer(car *block){
     block->i = 24;
     block->j = 4;
@@ -130,20 +158,6 @@ void CarPlayer(char matrix[ROWS][COLUMNS], car block, char symbol){
 }
 //==========================================================
 // Construindo carro Enemy
-// void CarEnemy(char matrix[ROWS][COLUMNS], car *block, char symbol){
-//     if(block->i <= ROWS-1)matrix[block->i][block->j+1] = symbol;
-//     if(block->i <= ROWS-1)matrix[block->i][block->j+2] = symbol;
-//     if(block->i <= ROWS-1)matrix[block->i][block->j-1] = symbol;
-//     if(block->i <= ROWS-1)matrix[block->i][block->j-2] = symbol;
-//     if(block->i-1>=0 && block->i-1 <= ROWS-1)matrix[block->i-1][block->j] = symbol;
-//     if(block->i-2 >= 0 && block->i-2 <= ROWS-1)matrix[block->i-2][block->j] = symbol;
-//     if(block->i-2 >= 0 && block->i-2 <= ROWS-1)matrix[block->i-2][block->j+1] = symbol;
-//     if(block->i-2 >= 0 && block->i-2 <= ROWS-1)matrix[block->i-2][block->j+2] = symbol;
-//     if(block->i-2 >= 0 && block->i-2 <= ROWS-1)matrix[block->i-2][block->j-1] = symbol;
-//     if(block->i-2 >= 0 && block->i-2 <= ROWS-1)matrix[block->i-2][block->j-2] = symbol;
-//     if(block->i-3 >= 0 && block->i-3 <= ROWS-1)matrix[block->i-3][block->j] = symbol;
-// }
-
 void CarEnemy(char matrix[ROWS][COLUMNS], car block, char symbol){
     if(block.i>=0 && block.i <= ROWS-1)matrix[block.i][block.j+1] = symbol;
     if(block.i>=0 && block.i <= ROWS-1)matrix[block.i][block.j+2] = symbol;
@@ -158,13 +172,15 @@ void CarEnemy(char matrix[ROWS][COLUMNS], car block, char symbol){
     if(block.i-3 >= 0 && block.i-3 <= ROWS-1)matrix[block.i-3][block.j] = symbol;
 }
 //==========================================================
-// Carros Inimigos: Conjunto 1 -
-void EnemyAlone(char matrix[ROWS][COLUMNS], car *enemy){
+// Randomizando posição do Carro inimigo
+void EnemyRandom(car *enemy){
 
     int posit=0;
-    posit=Random();
+    srand(time(NULL));
+
+    posit= (rand() % 6);
     
-    if(posit==0){
+    if(posit%2 != 0){
         CarEnemyLeft(enemy);
     } else {
         CarEnemyRight(enemy);
@@ -172,16 +188,11 @@ void EnemyAlone(char matrix[ROWS][COLUMNS], car *enemy){
 
 }
 //==========================================================
-int Random(){
-    int i;
-
-    srand(time(NULL));
-    i= (rand() % 2);
-
-    printf("oi");
-    getch();
-
-    return i;
+// Reset Car Enemy
+void ResetEnemy(car enemy){
+    if(enemy.i == ROWS+3){
+        EnemyRandom(&enemy);
+    }
 }
 //==========================================================
 //Verifica colisão
@@ -194,8 +205,54 @@ int Collision(car enemy, car player){
 }
 //==========================================================
 // função de game over, apos batida.
-void GameOver(char matrix[ROWS][COLUMNS]){
-    printf("Teste Testado\n");
-}
+int GameOver(char matrix[ROWS][COLUMNS], int pontos){
+    mark:
+    system("cls");
+    int i=0;
+    int opc=0;
+    
+    printf("\n\t");
+    for(i=0;i<25;i++){
+        printf("\xB1");
+    }
 
+    printf("\n\t\xB1\t\t\t\xB1\n");
+    printf("\t\xB1     \xDA\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xBF\t\xB1\n");
+    printf("\t\xB1     \xB3 GAME OVER \xB3\t\xB1\n");
+    printf("\t\xB1     \xC0\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xD9\t\xB1\n");
+    printf("\t\xB1\t\t\t\xB1\n");
+    printf("\t\xB1      PONTOS: %d\t\xB1\n", pontos);
+    printf("\t\xB1\t\t\t\xB1\n");
+    printf("\t\xB1      1-Novo Jogo\t\xB1\n");
+    printf("\t\xB1\t 2-Menu  \t\xB1\n");
+    printf("\t\xB1\t\t\t\xB1\n");
+
+    printf("\t");
+    for(i=0;i<25;i++){
+        printf("\xB1");
+    }
+    printf("\n");
+
+    printf("\tOpcao: ");
+    scanf("%d", &opc);
+    if(opc != 1 && opc != 2){
+        printf("Valor Invalido! Digite uma das opcoes listadas.");
+        getch();
+        goto mark;
+    }
+
+    return opc;
+}
 //==========================================================
+// void numsei(){
+//     FILE *arquivo;
+
+//     if((arquivo = fopen("Pontuacao.txt", "r")) == NULL){
+//         printf("\nError: File cannot be found or opened");
+//     } else {
+        
+//     }
+// }
+void Menu(){
+    
+}

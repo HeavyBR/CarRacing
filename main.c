@@ -5,51 +5,102 @@ int main(){
     char m[ROWS][COLUMNS];
     int ciclos=0;
     car player;
-    car enemy1;
-    car enemy2;
-    int Rmov=0;
-    int Lmov=0;
-    int collision=0;
+    car enemy[3];
+    int status[3]; // Verificador de status
+    int i=0;
+    int j=0;
+    int velocity=3; // velocidade de ciclos normal
     int wall=0;
     int keypress=0;
+    int score=0;
+    int option=0;
 
+    NovoJogo:
+    status[1]=0;
+    status[2]=0;
+    velocity=3;
+    score=0;
+    option=0;
+    keypress=0;
+    wall=0;
+    ciclos=0;
     system("color FD");
 
     InitCarPlayer(&player);
-    CarEnemyRight(&enemy1);
-    CarEnemyLeft(&enemy2);
+    for(i=0;i<3;i++)
+        EnemyRandom(&enemy[i]);
     startMtrx(m);
+    status[0] = 1; //Inicia o ciclo dos carros inimigos
     ShowConsoleCursor(0);
     system("cls");
+
+    Menu:
 
     while(keypress != 27){
         gotoxy(0,0);
 
-        CarEnemy(m, enemy1, PIXEL);
+        for(i=0;i<3;i++){
+            if(status[i] == 1){
+                CarEnemy(m, enemy[i], PIXEL);
+            }
+        }
         CarPlayer(m, player, PIXEL);
 
-        printMtx(m, wall);
+        printMtx(m, wall, score);
 
         // Verificando colisão
-        if(Collision(enemy1, player) == 1 || Collision(enemy2, player) == 1){
-            goto gameover;
+        for(i=0;i<3;i++){
+            if(Collision(enemy[i], player) == 1){
+                option=GameOver(m, score);
+                if(option == 1){
+                    system("cls");
+                    goto NovoJogo;                
+                } else {
+                    goto MenuGame;
+                }
+            }
         }
 
-        CarEnemy(m, enemy1, EMPTY);
+
+        for(i=0;i<3;i++){
+            if(status[i] == 1){
+                CarEnemy(m, enemy[i], EMPTY);
+            }
+        }
         CarPlayer(m, player, EMPTY);
 
-        // Depois do desaparecimento completo, reinia carrinho
-        if(enemy1.i == ROWS+3){
-            EnemyAlone(m, &enemy1);
+        // Reiniciando carrinho, 
+        for(i=0;i<3;i++){
+            if(status[i] == 1){
+                switch(enemy[i].i){
+                    case 27:{
+                        status[i]=0;
+                        EnemyRandom(&enemy[i]);
+                        score+=30;
+                        break;
+                    }
+                    case 11:{
+                        if(i==2)
+                            status[i-2]=1;
+                        else
+                            status[i+1]=1;
+                            
+                    }
+                }
+            }
         }
-        
 
-        if(ciclos!=VELOCITY){
-            ciclos++;
-        } else {
+        if(ciclos%velocity == 0){
             wall = orderWall(wall);
-            enemy1.i++;
-            ciclos=0;
+            for(i=0;i<3;i++){
+                if(status[i] == 1){
+                    enemy[i].i++;
+                }
+            }
+        }
+
+        if(score == 450){
+            velocity = 2;
         }
 
         keypress = EMPTY;
@@ -68,13 +119,21 @@ int main(){
                 CarPlayerRight(&player);
                 break;
             }
-                    
+            case TECLA_W:
+            case TECLA_w:{
+                if(score <= 450){
+                    if(velocity == 3){
+                        velocity = 2;
+                    } else {
+                        velocity = 3;
+                    }
+                }
+            }        
         }
-
+        ciclos++;
     }
 
-    gameover: GameOver(m);
-
+    MenuGame: Menu();
     system("pause");
 
     return 0;
