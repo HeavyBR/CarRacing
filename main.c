@@ -15,6 +15,12 @@ int main(){
     int score=0;
     int option=0;
 
+    Menu:option=MenuGame();
+    if(option == 2){
+        
+    } else if(option == 3){
+        exit(0);
+    }
     NovoJogo:
     status[1]=0;
     status[2]=0;
@@ -34,7 +40,7 @@ int main(){
     ShowConsoleCursor(0);
     system("cls");
 
-    Menu:
+    
 
     while(keypress != 27){
         gotoxy(0,0);
@@ -56,7 +62,7 @@ int main(){
                     system("cls");
                     goto NovoJogo;                
                 } else {
-                    goto MenuGame;
+                    goto Menu;
                 }
             }
         }
@@ -133,7 +139,6 @@ int main(){
         ciclos++;
     }
 
-    MenuGame: Menu();
     system("pause");
 
     return 0;

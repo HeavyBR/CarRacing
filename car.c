@@ -235,7 +235,46 @@ int GameOver(char matrix[ROWS][COLUMNS], int pontos){
 
     printf("\tOpcao: ");
     scanf("%d", &opc);
-    if(opc != 1 && opc != 2){
+    if(opc<1 || opc>3){
+        printf("Valor Invalido! Digite uma das opcoes listadas.");
+        getch();
+        goto mark;
+    }
+
+    return opc;
+}
+//==========================================================
+// Menu game
+int MenuGame(){
+    mark:
+    system("cls");
+    int i=0;
+    int opc=0;
+    
+    printf("\n\t");
+    for(i=0;i<25;i++){
+        printf("\xB1");
+    }
+
+    printf("\n\t\xB1\t\t\t\xB1\n");
+    printf("\t\xB1    \xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\t\xB1\n");
+    printf("\t\xB1          MENU     \t\xB1\n");
+    printf("\t\xB1    \xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\t\xB1\n");
+    printf("\t\xB1\t\t\t\xB1\n");
+    printf("\t\xB1      1-Novo Jogo\t\xB1\n");
+    printf("\t\xB1      2-Highscore\t\xB1\n");
+    printf("\t\xB1         3-Sair  \t\xB1\n");
+    printf("\t\xB1\t\t\t\xB1\n");
+
+    printf("\t");
+    for(i=0;i<25;i++){
+        printf("\xB1");
+    }
+    printf("\n");
+
+    printf("\tOpcao: ");
+    scanf("%d", &opc);
+    if(opc<1 || opc>3){
         printf("Valor Invalido! Digite uma das opcoes listadas.");
         getch();
         goto mark;
@@ -253,6 +292,3 @@ int GameOver(char matrix[ROWS][COLUMNS], int pontos){
         
 //     }
 // }
-void Menu(){
-    
-}

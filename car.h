@@ -64,4 +64,4 @@ void ResetEnemy(car enemy);
 
 void VelocityGame(int *moment);
 
-void Menu();
+int MenuGame();
