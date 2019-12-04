@@ -292,29 +292,22 @@ int MenuGame(){
 void Highscore(){
     system("cls");
     int i=0;
-    int position=1; // Manipulador de posição
-    char matriz[10][25];
+    Rank *bufferRead;
     FILE *arquivo;
 
+    bufferRead = malloc(sizeof(Rank) * 1);
     printf("\n\t=== HIGHSCORE ===\n");
 
-    if((arquivo = fopen("Pontuacao.txt", "r")) == NULL){
+    if((arquivo = fopen("Pontuacao.bin", "rb")) == NULL){
         printf("\nError: File cannot be found or opened");
-    } else {
-        for(i=0;i<10;i++){
-            fgets(matriz[i], 25, arquivo);
-        }
-
-        for(i=0;i<10;i++){
-            if(i%2 == 0){
-                printf("\t    %d\xF8 Lugar\n\t    %s", position, matriz[i]);
-                position++;
-            } else {
-                printf("\t    Score %s\n", matriz[i]);
-            } 
-        }
-        printf("\t================\n");
     }
+        while(fread(bufferRead, sizeof(Rank), 1, arquivo)){								
+		    printf("\tNome: %s\n\tScore: %d\n", bufferRead->name, bufferRead->score);
+            printf("\n");
+	    }
+        printf("\t================\n");
+        
+
     fclose(arquivo);
     getch();
     fflush(arquivo);
@@ -322,46 +315,58 @@ void Highscore(){
 //==========================================================
 // Registro de novos recordes
 void NewRecord(int pontos){
-    int i=0;
-    char matriz[10][25];
-    int auxInt=0;
-    int position=1;
     FILE *arquivo;
+    Rank *bufferRead;
+    Rank *bufferFinal;
+    Rank variavel[5];
+    int cont=0;
+    int i=0;
+    int identifier=0;
 
-    if((arquivo = fopen("Pontuacao.txt", "r")) == NULL){
+    bufferRead = malloc(sizeof(Rank) * 1);
+    bufferFinal = malloc(sizeof(Rank) * 1);
+
+    arquivo ;
+    if ((arquivo = fopen("Pontuacao.bin", "rb")) == NULL){
         printf("\nError: File cannot be found or opened");
-    } else {
-        for(i=0;i<10;i++){
-            fgets(matriz[i], 25, arquivo);
+    }
+    
+    while(fread(bufferRead, sizeof(Rank), 1, arquivo)){
+        if(bufferRead->score > pontos && identifier != 1){
+        sprintf(variavel[cont].name, "%s", bufferRead->name);
+        variavel[cont].score = bufferRead->score;
+        cont+=1;
+        } else {
+            if(identifier != 1){
+            printf("\t=== NOVO RECORDE ===\n");
+            printf("\tNome:");
+            scanf("%s", &variavel[cont].name);
+            variavel[cont].score=pontos;
+            cont+=1;
+            sprintf(variavel[cont].name, "%s", bufferRead->name);
+            variavel[cont].score = bufferRead->score;
+            identifier=1;
+            } else {
+                cont+=1;
+                sprintf(variavel[cont].name, "%s", bufferRead->name);
+                variavel[cont].score = bufferRead->score;
+            }
+        }
+        if(cont == 4){
+            goto mark;
         }
     }
+
     fclose(arquivo);
     fflush(arquivo);
-
-    if((arquivo = fopen("Pontuacao.txt", "w")) == NULL){
-        printf("\nError: File cannot be found or opened");
-    } else {
-        for(i=0;i<10;i++){
-            if(i%2 != 0){
-                auxInt=atoi(matriz[i]);
-                if(auxInt <= pontos){
-                    printf("\t=== NOVO RECORDE!!! ===\n");
-                    printf("\t     * %d Lugar *\n", position);
-                    printf("\t Nome: ");
-                    scanf("%s", &matriz[i-1]);
-                    printf("\t=======================\n");
-                    sprintf(matriz[i], "\n%d\n", pontos);
-                    goto mark;
-                }
-                position++;
-            } 
-        }
-
-        
-        mark:for(i=0;i<10;i++){
-            fprintf(arquivo, "%s", matriz[i]);
-        }
+    
+    mark: arquivo = fopen("Pontuacao.bin", "wb");
+    for(i=0;i<5;i++){
+        sprintf(bufferFinal->name, "%s", variavel[i].name);
+        bufferFinal->score = variavel[i].score;
+        fwrite(bufferFinal, sizeof(Rank), 1, arquivo);
     }
+
     fclose(arquivo);
     fflush(arquivo);
 }

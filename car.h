@@ -32,6 +32,11 @@ typedef struct{
     int width;
 } car; 
 
+typedef struct{
+    char name[25];
+    int score;
+} Rank;
+
 void startMtrx(char matrix[ROWS][COLUMNS]);
 
 void printMtx(char matrix[ROWS][COLUMNS], int detect, int pontos);
